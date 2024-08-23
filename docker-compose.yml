@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     environment:
@@ -12,13 +13,16 @@ services:
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
-    # volumes:
-    #   - .:/app
     depends_on:
       - mysql
+    env_file:
+      - .env
 
   mysql:
     image: mysql:8.0
+    command:
+      --collation-server=utf8mb4_0900_bin
+      --transaction-isolation=READ-COMMITTED
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
@@ -29,6 +33,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+
 
 volumes:
   mysql-data:
