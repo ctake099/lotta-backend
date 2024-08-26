@@ -25,5 +25,5 @@ class UserBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserBook
         fields = ['id', 'user', 'book', 'book_memo', 'added_at']
-        read_only_fields = ['user', 'book', 'added_at']
+        read_only_fields = ['added_at']
 
