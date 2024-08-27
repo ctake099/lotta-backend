@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
+    working_dir: /app/backend
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
@@ -20,6 +21,7 @@ services:
 
   mysql:
     image: mysql:8.0
+    container_name: mysql
     command:
       --collation-server=utf8mb4_0900_bin
       --transaction-isolation=READ-COMMITTED
